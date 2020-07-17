@@ -3,11 +3,13 @@
 # Project Proposal:
 
 Create a Python application that removes manual intervention of simple tasks and system queries. The tool will help a user use an application to choose if they want to copy, move, delete, rename, files or folders. They will also be able to get information about the system, what files are contained inside a folder, and retrieve file/folder size information from one console.
+
 Example:
  - Copy/Rename/Delete/Move files and folders
  - Retrieve # of files in a specified location
  - Retrieve info of current running tasks
- - etc etc (to be expanded?)
+ - Retrieve info of folder/file size
+ - ...
 
 # Classes
 
