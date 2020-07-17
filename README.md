@@ -1,6 +1,6 @@
-## Final Project: Python System Automation Tool
+# Final Project: Python System Automation Tool
 
-# Project Proposal:
+## Project Proposal:
 
 Create a Python application that removes manual intervention of simple tasks and system queries. The tool will help a user use an application to choose if they want to copy, move, delete, rename, files or folders. They will also be able to get information about the system, what files are contained inside a folder, and retrieve file/folder size information from one console.
 
@@ -11,7 +11,7 @@ Example:
  - Retrieve info of folder/file size
  - ...
 
-# Classes
+## Classes
 
 Files Class - This class will contain actions related to files. Get/Set private methods will be used to set file paths.
 
@@ -84,5 +84,5 @@ class System_Tasks:
     def file_size(self):
         pass
 
-# Libraries/Modules
+## Libraries/Modules
 Python Libraries/Modules to be used as part of the project include os, subprocess, shutil. Other dependencies may be used as project is finalized.
