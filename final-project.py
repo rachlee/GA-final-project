@@ -19,6 +19,7 @@ import psutil
 import platform
 from datetime import datetime
 import time
+from columnar import columnar
 
 
 
@@ -110,6 +111,7 @@ class Folders:
     def delete(self):
         return shutil.rmtree(self.__src_path)
 
+
 class System_Tasks:
 
     def __init__(self):
@@ -159,7 +161,7 @@ class System_Tasks:
         # find files that contain 'string'
         pass
 
-    # Method to return list of files and subdirectories and dict of file/folder creation_date, modified_date, size
+    # Method to return dict of files and subdirectories and their creation_date, modified_date, size
     def folder_info(self):
         dir_items = listdir(self.__src_path)
         items = {}
@@ -170,13 +172,37 @@ class System_Tasks:
                 'Modified': time.ctime(tmp.st_atime),
                 'Size (bytes)': tmp.st_size
                 }
+        return items
 
-        return dir_items, items
+    # Method to return list of files and subdirectories
+    def folder_contents(self):
+        return listdir(self.__src_path)
 
     # Method to return size of file
     def file_size(self):
         return os.stat(self.__src_path).st_size
 
+
+# Function to display in formatted column view of folder_info() method in Folders class
+def display_folder_info(folder_items):
+    headers = ['Item', 'Created', 'Modified', 'Size']
+    
+    convert_list = []
+    for key, val in folder_items.items():
+        tmp = []
+        tmp.append(key)
+        print(f'Key: {key}, Val: {val}')
+        for k, v in val.items():
+            print(f'Key: {k}, Val: {v}')
+            tmp.append(v)
+        print(f'tmp: {tmp}')
+        convert_list.append(tmp)
+    print(f'convert_list: {convert_list}')
+    table = columnar(convert_list, headers, no_borders=True)
+    print(table)
+
+
+# Function to call Main Menu view
 def main_menu():
     print("=========================================================")
     print("==========    Python System Automation Tool    ==========")
@@ -190,7 +216,7 @@ def main_menu():
     user_input = input("Enter option:  ")
     return int(user_input)
 
-
+# Function to call File Menu view
 def file_menu():
     print("=========================================================")
     print("==========              File Menu              ==========")
@@ -204,7 +230,7 @@ def file_menu():
     user_input = input("Enter option:  ")
     return int(user_input)
 
-
+# Function to call Folder Menu view
 def folder_menu():
     print("=========================================================")
     print("==========             Folder Menu             ==========")
@@ -218,6 +244,7 @@ def folder_menu():
     user_input = input("Enter option:  ")
     return int(user_input)
 
+# Function to call System Menu view
 def system_menu():
     print("=========================================================")
     print("==========          System Tasks Menu          ==========")
@@ -335,13 +362,20 @@ def main():
     print("Choose directory.")
     time.sleep(2)
     sys.src_path = filedialog.askdirectory()
-    print(sys.folder_info())
+    dir_info = sys.folder_info()
+    dir_contents = sys.folder_contents()
+    display_folder_info(dir_info)
+    # print(dir_info)
+    # print(dir_contents)
+
+
+
 
     ''' File Size '''
-    print("Choose directory.")
-    time.sleep(2)
-    sys.src_path = easygui.fileopenbox()
-    print(sys.file_size())
+    # print("Choose directory.")
+    # time.sleep(2)
+    # sys.src_path = easygui.fileopenbox()
+    # print(sys.file_size())
     
     
     
