@@ -173,8 +173,9 @@ class System_Tasks:
 
         return dir_items, items
 
+    # Method to return size of file
     def file_size(self):
-        pass
+        return os.stat(self.__src_path).st_size
 
 def main_menu():
     print("=========================================================")
@@ -335,8 +336,12 @@ def main():
     time.sleep(2)
     sys.src_path = filedialog.askdirectory()
     print(sys.folder_info())
-    # print('st_atime: ' + time.ctime(a.st_atime))
-    # print('st_ctime: ' + time.ctime(a.st_ctime))
+
+    ''' File Size '''
+    print("Choose directory.")
+    time.sleep(2)
+    sys.src_path = easygui.fileopenbox()
+    print(sys.file_size())
     
     
     
