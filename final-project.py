@@ -274,6 +274,15 @@ def system_menu():
     print("==========          System Tasks Menu          ==========")
     print("=========================================================")
     print("")
+    print("Enter 1 - to Get System Information")
+    print("Enter 2 - to Get a List of all contents in a Folder")
+    print("Enter 3 - to Get a List of [Create Date, Modified Date, Size] of all contents in a Folder")
+    print("Enter 4 - to Get the Size of a File")
+    print("Enter 5 - to Search for all Files in a Folder with extension of choice")
+    print("Enter 6 - to Search for all Files in a Folder containing 'string' of choice")
+    print("")
+    user_input = input("Enter option:  ")
+    return int(user_input)
     
 
 # Run Python System Automation Tool
