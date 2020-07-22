@@ -447,6 +447,7 @@ def main():
                 break
             elif menu == '4':
                 print("Entered 4 - to Rename Folder")
+                ### RENAME FOLDER ###
                 print("\nChoose folder to rename.")
                 time.sleep(2)
                 action_item.src_path = filedialog.askdirectory()
@@ -486,27 +487,65 @@ def main():
             menu = system_menu()
 
             if menu == '1':
-                print("Enter 1 - to Get System Information")
+                print("Entered 1 - to Get System Information")
+                ### SYSTEM INFO ###
+                sys_info = action_item.system_info()
+                print(f'\nSystem Information:\n{sys_info}')
+                # print(sys_info['System Name'])
                 counter = 2
                 break
             elif menu == '2':
-                print("Enter 2 - to Get a List of all contents in a Folder")
+                print("Entered 2 - to Get a List of all contents in a Folder")
+                ### FOLDER CONTENTS ###
+                print("\nChoose directory.")
+                time.sleep(2)
+                action_item.src_path = filedialog.askdirectory()
+                print(f'\nSelected folder contains:\n{action_item.folder_contents()}')
                 counter = 2
                 break     
             elif menu == '3':
-                print("Enter 3 - to Get a List of [Create Date, Modified Date, Size] of all contents in a Folder")
+                print("Entered 3 - to Get a List of [Create Date, Modified Date, Size] of all contents in a Folder")
+                ### DISPLAY FOLDER INFO ###
+                print("\nChoose directory.")
+                time.sleep(2)
+                action_item.src_path = filedialog.askdirectory()
+                dir_info = action_item.folder_info()
+                dir_contents = action_item.folder_contents()
+                display_folder_info(dir_info)
                 counter = 2
                 break
             elif menu == '4':
-                print("Enter 4 - to Get the Size of a File")
+                print("Entered 4 - to Get the Size of a File")
+                ### FILE SIZE ###
+                print("Choose file.")
+                time.sleep(2)
+                action_item.src_path = easygui.fileopenbox()
+                print(f'\nSelected file size (bytes): {action_item.file_size()}')
                 counter = 2
                 break
             elif menu == '5':
-                print("Enter 5 - to Search for all Files in a Folder with extension of choice")
+                print("Entered 5 - to Search for all Files in a Folder with extension of choice")
+                ### Find Files w/ 'Extension' ###
+                print("\nChoose directory.")
+                time.sleep(2)
+                action_item.src_path = filedialog.askdirectory()
+                time.sleep(1)
+                action_item.dest_path  = simpledialog.askstring(title="User Input", prompt="Enter file extension type to search (e.g. .txt, .zip, .png, .jpg, etc): ")
+                files_list = action_item.find_files_ext()
+                format_file_list(files_list)
                 counter = 2
                 break
             elif menu == '6':
-                print("Enter 6 - to Search for all Files in a Folder containing 'string' of choice")
+                print("Entered 6 - to Search for all Files in a Folder containing 'string' of choice")
+                ### Find Files containing 'String' ###
+                print("\nChoose directory.")
+                time.sleep(2)
+                action_item.src_path = filedialog.askdirectory()
+                time.sleep(1)
+                user_input  = simpledialog.askstring(title="User Input", prompt="Enter string matchcase for files: ")
+                action_item.dest_path = f'*{user_input}*'
+                files_list = action_item.find_files_contains()
+                format_file_list(files_list)  
                 counter = 2
                 break 
             else:
@@ -618,6 +657,12 @@ def main():
     # dir_info = system.folder_info()
     # dir_contents = system.folder_contents()
     # display_folder_info(dir_info)
+
+    ''' Folder Contents '''
+    # print("Choose directory.")
+    # time.sleep(2)
+    # system.src_path = filedialog.askdirectory()
+    # print(system.folder_contents())
 
     ''' File Size '''
     # print("Choose directory.")
