@@ -153,9 +153,15 @@ class System_Tasks:
         }
         return self.sys_info
 
+    # Mthod to find files that contains user desired extension (i.e. .zip, .pdf. .png, .jpg, .txt, etc)
     def find_files_ext(self):
-        # find files that contains extension (i.e. .zip, .pdf. .png, .txt etc)
-        pass
+        dir_list = os.listdir(self.__src_path)
+        file_list = []
+        for item in dir_list:
+            if item.endswith(self.__dest_path):
+                file_list.append(item)
+        # print(f'Files with ext {file_type}:\n{file_list}')
+        return file_list
 
     def find_files_contains(self):
         # find files that contain 'string'
@@ -182,6 +188,18 @@ class System_Tasks:
     def file_size(self):
         return os.stat(self.__src_path).st_size
 
+
+# Function to convert list of files to formatted column view
+def format_file_list(file_items):
+    headers = ['File Name']
+
+    final_list = []
+    for val in file_items:
+        tmp = []
+        tmp.append(val)
+        final_list.append(tmp)
+    table = columnar(final_list, headers, no_borders=True)
+    print(table)
 
 # Function to display in formatted column view of folder_info() method in Folders class
 def display_folder_info(folder_items):
@@ -254,16 +272,6 @@ def system_menu():
 
 # Run Python System Automation Tool
 def main():
-
-    # test_file = Files()
-    # test_file.src_path = r"C:\Users\file" #raw string; can also use "C:\\Users"
-    # print(test_file.src_path)
-
-    # test_folder = Folders()
-    # test_folder.src_path = r"C:\Users\folder" #raw string; can also use "C:\\Users"
-    # print(test_folder.src_path)
-
-    # subprocess.Popen(r'explorer /select,"C:\\Users\\rachl\\Documents\\TEST"')
     
     ### START of MAIN ###
 
@@ -345,8 +353,6 @@ def main():
     # folder.dest_path = '/'.join(temp) 
     # print(folder.dest_path)
     # folder.rename()
-    # os.rename(folder.src_path, folder.dest_path)
-
 
 
     # print(folder.src_path)
@@ -359,23 +365,27 @@ def main():
     print(sys_info['System Name'])
 
     ''' Folder Info '''
-    print("Choose directory.")
-    time.sleep(2)
-    sys.src_path = filedialog.askdirectory()
-    dir_info = sys.folder_info()
-    dir_contents = sys.folder_contents()
-    display_folder_info(dir_info)
-    # print(dir_info)
-    # print(dir_contents)
-
-
-
+    # print("Choose directory.")
+    # time.sleep(2)
+    # sys.src_path = filedialog.askdirectory()
+    # dir_info = sys.folder_info()
+    # dir_contents = sys.folder_contents()
+    # display_folder_info(dir_info)
 
     ''' File Size '''
     # print("Choose directory.")
     # time.sleep(2)
     # sys.src_path = easygui.fileopenbox()
     # print(sys.file_size())
+
+    ''' Find Files w/ Extension'''
+    # print("Choose directory.")
+    # time.sleep(2)
+    # sys.src_path = filedialog.askdirectory()
+    # sys.dest_path  = simpledialog.askstring(title="User Input", prompt="Enter file extension type to search (e.g. .txt, .zip, .png, .jpg, etc): ")
+    # files_list = sys.find_files_ext()
+    # format_file_list(files_list)
+    
     
     
     
