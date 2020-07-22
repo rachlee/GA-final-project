@@ -409,19 +409,65 @@ def main():
             menu = folder_menu()
 
             if menu == '1':
-                print("Enter 1 - to Copy Folder")
+                print("Entered 1 - to Copy Folder")
+                ### COPY FOLDER ###
+                print("\nChoose folder to copy.")
+                time.sleep(2)
+                action_item.src_path = filedialog.askdirectory()
+                time.sleep(1)
+                print("\nChoose destination directory.")
+                time.sleep(2)
+                action_item.dest_path  = filedialog.askdirectory()
+                time.sleep(1)
+                action_item.copy()
+                print(f"\nFolder COPY is complete. ")
                 counter = 2
                 break
             elif menu == '2':
-                print("Enter 2 - to Mopy Folder")
+                print("Entered 2 - to Move Folder")
+                ### MOVE FOLDER ###
+                print("\nChoose folder to move.")
+                time.sleep(2)
+                action_item.src_path = filedialog.askdirectory()
+                print("\nChoose destination directory.")
+                time.sleep(2)
+                action_item.dest_path  = filedialog.askdirectory()
+                action_item.move()
                 counter = 2
                 break     
             elif menu == '3':
-                print("Enter 3 - to Delete Folder")
+                print("Entered 3 - to Delete Folder")
+                ### DELETE FOLDER ###
+                print("\nChoose folder to delete.")
+                time.sleep(2)
+                action_item.src_path = filedialog.askdirectory()
+                time.sleep(2)
+                action_item.delete()
                 counter = 2
                 break
             elif menu == '4':
-                print("Enter 4 - to Rename Folder")
+                print("Entered 4 - to Rename Folder")
+                print("\nChoose folder to rename.")
+                time.sleep(2)
+                action_item.src_path = filedialog.askdirectory()
+                action_item.dest_path = action_item.src_path
+                time.sleep(1)
+                root = tk.Tk()
+                print("\nRequesting new name for folder.")
+                name  = simpledialog.askstring(title="User Input", prompt="Enter new folder name:")
+                time.sleep(2)
+                temp = action_item.dest_path.split('/')
+                print(f'temp: {temp}')
+                temp = temp[:-1]
+                print(f'temp: {temp}')
+                temp.append(name)
+                print(f'temp path: {temp}')
+                print(f'action_item.src_path: {action_item.src_path}')
+                print(f'action_item.dest_path: {action_item.dest_path}')
+                action_item.dest_path = '/'.join(temp) 
+                print(f'Dest Path:  {action_item.dest_path}')
+                action_item.rename()
+                print(f"\nFolder RENAME is complete. ")
                 counter = 2
                 break   
             else:
@@ -515,7 +561,7 @@ def main():
 
     '''folder = Folders()'''
     '''COPY FOLDER'''
-    # print("Choose folder to move.")
+    # print("Choose folder to copy.")
     # time.sleep(2)
     # folder.src_path = filedialog.askdirectory()
     # print("Choose destination directory.")
@@ -524,7 +570,7 @@ def main():
     # folder.copy()
 
     '''DELETE FOLDER'''
-    # print("Choose folder to move.")
+    # print("Choose folder to delete.")
     # time.sleep(2)
     # folder.src_path = filedialog.askdirectory()
     # print("Choose destination directory.")
@@ -542,7 +588,7 @@ def main():
     # folder.move()
 
     '''RENAME FOLDER'''
-    # print("Choose folder to move.")
+    # print("Choose folder to rename.")
     # time.sleep(2)
     # folder.src_path = filedialog.askdirectory()
     # print("Choose destination directory.")
