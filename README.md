@@ -88,9 +88,9 @@ class System_Tasks:
 
 ## Libraries/Modules
 Python Libraries/Modules to be used as part of the project are below:
-
-* import os
-* from os import listdir
+```
+import os
+from os import listdir
 import subprocess
 import shutil
 import easygui
@@ -105,3 +105,4 @@ import platform
 from datetime import datetime
 import time
 from columnar import columnar
+```
