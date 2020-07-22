@@ -15,6 +15,7 @@ from tkinter import filedialog
 from tkinter import *
 from tkinter import simpledialog
 from distutils.dir_util import copy_tree
+from fnmatch import fnmatch
 import psutil
 import platform
 from datetime import datetime
@@ -163,9 +164,14 @@ class System_Tasks:
         # print(f'Files with ext {file_type}:\n{file_list}')
         return file_list
 
-    def find_files_contains(self):
-        # find files that contain 'string'
-        pass
+    # Method to find files that contains entered 'string'
+    def find_files_contains(self):  
+        dir_list = os.listdir(self.__src_path)
+        file_list = []
+        for val in dir_list:
+            if fnmatch(val, self.__dest_path):
+                file_list.append(val)
+        return file_list
 
     # Method to return dict of files and subdirectories and their creation_date, modified_date, size
     def folder_info(self):
@@ -378,14 +384,22 @@ def main():
     # sys.src_path = easygui.fileopenbox()
     # print(sys.file_size())
 
-    ''' Find Files w/ Extension'''
+    ''' Find Files w/ Extension '''
     # print("Choose directory.")
     # time.sleep(2)
     # sys.src_path = filedialog.askdirectory()
     # sys.dest_path  = simpledialog.askstring(title="User Input", prompt="Enter file extension type to search (e.g. .txt, .zip, .png, .jpg, etc): ")
     # files_list = sys.find_files_ext()
     # format_file_list(files_list)
-    
+
+    ''' Find Files containing String '''
+    # print("Choose directory.")
+    # time.sleep(2)
+    # sys.src_path = filedialog.askdirectory()
+    # user_input  = simpledialog.askstring(title="User Input", prompt="Enter string matchcase for files: ")
+    # sys.dest_path = f'*{user_input}*'
+    # files_list = sys.find_files_contains()
+    # format_file_list(files_list)  
     
     
     

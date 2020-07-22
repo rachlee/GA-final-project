@@ -13,6 +13,8 @@ Example:
 
 ## Classes
 
+### Classes are designed to get/set src_path & dest_path to be used as private variables for internal class usage with no need for parameters in method calls
+
 Files Class - This class will contain actions related to files. Get/Set private methods will be used to set file paths.
 
 class Files:
@@ -85,4 +87,4 @@ class System_Tasks:
         pass
 
 ## Libraries/Modules
-Python Libraries/Modules to be used as part of the project include os, subprocess, shutil. Other dependencies may be used as project is finalized.
+Python Libraries/Modules to be used as part of the project include os, subprocess, shutil. Other dependencies may be used as project is finalized.git
