@@ -248,7 +248,7 @@ def file_menu():
     print("=========================================================")
     print("")
     print("Enter 1 - to Copy File")
-    print("Enter 2 - to Mopy File")
+    print("Enter 2 - to Move File")
     print("Enter 3 - to Delete File")
     print("Enter 4 - to Rename File")
     print("")
@@ -262,7 +262,7 @@ def folder_menu():
     print("=========================================================")
     print("")
     print("Enter 1 - to Copy Folder")
-    print("Enter 2 - to Mopy Folder")
+    print("Enter 2 - to Move Folder")
     print("Enter 3 - to Delete Folder")
     print("Enter 4 - to Rename Folder")
     print("")
@@ -321,26 +321,75 @@ def main():
     print(f'Action_Item Type:  {type(action_item)}')
 
 
-    # IF/ELSE condition check to determin which action item to process
+    # IF/ELSE condition check to determine which action item to process
     if isinstance(action_item, Files):
+        # if Action Item requests on Files() class
         counter = 0
         while counter < 3:
             menu = file_menu()
 
             if menu == '1':
-                print("Enter 1 - to Copy File")
+                print("\nEntered 1 - to Copy File")
+                ### COPY FILE ###
+                print("\nChoose file to copy.")
+                time.sleep(2)
+                action_item.src_path = easygui.fileopenbox()
+                time.sleep(1)
+                print("\nChoose destination path. ")
+                time.sleep(2)
+                action_item.dest_path = filedialog.askdirectory()
+                time.sleep(1)
+                action_item.copy()
+                print(f"\nFile COPY is complete. ")
                 counter = 2
                 break
             elif menu == '2':
-                print("Enter 2 - to Mopy File")
+                print("\nEntered 2 - to Move File")
+                ### MOVE FILE ###
+                print("\nChoose file to move.")
+                time.sleep(2)
+                action_item.src_path = easygui.fileopenbox()
+                print("\nChoose directory to move file to.")
+                time.sleep(2)
+                action_item.dest_path  = filedialog.askdirectory()
+                action_item.move()
+                print(f"\nFile MOVE is complete. ")
                 counter = 2
                 break     
             elif menu == '3':
-                print("Enter 3 - to Delete File")
+                print("\nEntered 3 - to Delete File")
+                ### DELETE FILE ###
+                print("\nChoose file to delete.")
+                time.sleep(2)
+                action_item.src_path = easygui.fileopenbox()
+                action_item.delete()
+                print(f"\nFile DELETE is complete. ")
                 counter = 2
                 break
             elif menu == '4':
-                print("Enter 4 - to Rename File")
+                print("\nEntered 4 - to Rename File")
+                ### RENAME FILE ###
+                print("\nChoose file to rename.")
+                time.sleep(2)
+                action_item.src_path = easygui.fileopenbox()
+                action_item.dest_path = action_item.src_path
+                time.sleep(1)
+                root = tk.Tk()
+                print("\nRequesting new name for file (include ext).")
+                name = simpledialog.askstring(title="User Input", prompt="Enter new file name:")
+                time.sleep(2)
+                temp = action_item.dest_path.split('\\')
+                print(f'temp: {temp}')
+                temp = temp[:-1]
+                print(f'temp: {temp}')
+                temp.append(name)
+                print(f'temp path: {temp}')
+                print(f'action_item.src_path: {action_item.src_path}')
+                print(f'action_item.dest_path: {action_item.dest_path}')
+                action_item.dest_path = '/'.join(temp) 
+                print(f'Dest Path:  {action_item.dest_path}')
+                action_item.rename(action_item.dest_path)
+                print(f"\nFile RENAME is complete. ")
                 counter = 2
                 break   
             else:
@@ -351,8 +400,10 @@ def main():
         else:
             sys.exit("\nToo many attempts. Exiting system... ")
         print(f'Action_Item Type:  {type(action_item)}')
+        sys.exit("\nExiting Python Automation Tool system... ")
 
     elif isinstance(action_item, Folders):
+        # if Action Item requests on Folders() class
         counter = 0
         while counter < 3:
             menu = folder_menu()
@@ -383,6 +434,7 @@ def main():
         print(f'Action_Item Type:  {type(action_item)}')
         
     elif isinstance(action_item, System_Tasks):
+        # if Action Item requests on System_Tasks() class
         counter = 0
         while counter < 3:
             menu = system_menu()
