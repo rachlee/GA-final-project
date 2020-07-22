@@ -21,6 +21,7 @@ import platform
 from datetime import datetime
 import time
 from columnar import columnar
+import sys
 
 
 
@@ -238,7 +239,7 @@ def main_menu():
     print("Enter 3 - to Get System Information")
     print("")
     user_input = input("Enter option:  ")
-    return int(user_input)
+    return user_input
 
 # Function to call File Menu view
 def file_menu():
@@ -252,7 +253,7 @@ def file_menu():
     print("Enter 4 - to Rename File")
     print("")
     user_input = input("Enter option:  ")
-    return int(user_input)
+    return user_input
 
 # Function to call Folder Menu view
 def folder_menu():
@@ -266,7 +267,7 @@ def folder_menu():
     print("Enter 4 - to Rename Folder")
     print("")
     user_input = input("Enter option:  ")
-    return int(user_input)
+    return user_input
 
 # Function to call System Menu view
 def system_menu():
@@ -282,15 +283,148 @@ def system_menu():
     print("Enter 6 - to Search for all Files in a Folder containing 'string' of choice")
     print("")
     user_input = input("Enter option:  ")
-    return int(user_input)
+    return user_input
     
 
 # Run Python System Automation Tool
 def main():
     
     ### START of MAIN ###
+    menu = None
+    action_item = None
 
-    file = Files()
+    # WHILE LOOP to check which option from Main Menu
+    counter = 0
+    while counter < 3:
+        menu = main_menu()
+
+        if menu == '1':
+            action_item = Files()
+            counter = 2
+            break
+        elif menu == '2':
+            action_item = Folders()
+            counter = 2
+            break
+        elif menu == '3':
+            action_item = System_Tasks()
+            counter = 2
+            break
+        else:
+            counter += 1
+            print("\nInput is invalid.\n")
+            time.sleep(3)
+            continue
+    else:
+        sys.exit("\nToo many attempts. Exiting system... ")
+
+    print(f'Action_Item Type:  {type(action_item)}')
+
+
+    # IF/ELSE condition check to determin which action item to process
+    if isinstance(action_item, Files):
+        counter = 0
+        while counter < 3:
+            menu = file_menu()
+
+            if menu == '1':
+                print("Enter 1 - to Copy File")
+                counter = 2
+                break
+            elif menu == '2':
+                print("Enter 2 - to Mopy File")
+                counter = 2
+                break     
+            elif menu == '3':
+                print("Enter 3 - to Delete File")
+                counter = 2
+                break
+            elif menu == '4':
+                print("Enter 4 - to Rename File")
+                counter = 2
+                break   
+            else:
+                counter += 1
+                print("\nInput is invalid.\n")
+                time.sleep(3)
+                continue  
+        else:
+            sys.exit("\nToo many attempts. Exiting system... ")
+        print(f'Action_Item Type:  {type(action_item)}')
+
+    elif isinstance(action_item, Folders):
+        counter = 0
+        while counter < 3:
+            menu = folder_menu()
+
+            if menu == '1':
+                print("Enter 1 - to Copy Folder")
+                counter = 2
+                break
+            elif menu == '2':
+                print("Enter 2 - to Mopy Folder")
+                counter = 2
+                break     
+            elif menu == '3':
+                print("Enter 3 - to Delete Folder")
+                counter = 2
+                break
+            elif menu == '4':
+                print("Enter 4 - to Rename Folder")
+                counter = 2
+                break   
+            else:
+                counter += 1
+                print("\nInput is invalid.\n")
+                time.sleep(3)
+                continue  
+        else:
+            sys.exit("\nToo many attempts. Exiting system... ")
+        print(f'Action_Item Type:  {type(action_item)}')
+        
+    elif isinstance(action_item, System_Tasks):
+        counter = 0
+        while counter < 3:
+            menu = system_menu()
+
+            if menu == '1':
+                print("Enter 1 - to Get System Information")
+                counter = 2
+                break
+            elif menu == '2':
+                print("Enter 2 - to Get a List of all contents in a Folder")
+                counter = 2
+                break     
+            elif menu == '3':
+                print("Enter 3 - to Get a List of [Create Date, Modified Date, Size] of all contents in a Folder")
+                counter = 2
+                break
+            elif menu == '4':
+                print("Enter 4 - to Get the Size of a File")
+                counter = 2
+                break
+            elif menu == '5':
+                print("Enter 5 - to Search for all Files in a Folder with extension of choice")
+                counter = 2
+                break
+            elif menu == '6':
+                print("Enter 6 - to Search for all Files in a Folder containing 'string' of choice")
+                counter = 2
+                break 
+            else:
+                counter += 1
+                print("\nInput is invalid.\n")
+                time.sleep(3)
+                continue  
+        else:
+            sys.exit("\nToo many attempts. Exiting system... ")
+        print(f'Action_Item Type:  {type(action_item)}')
+        
+
+
+    ##########################################################################
+
+    '''file = Files()'''
     '''COPY FILE'''
     # print("Choose file to copy.")
     # time.sleep(2)
@@ -327,7 +461,7 @@ def main():
     # file.move()
     
 
-    folder = Folders()
+    '''folder = Folders()'''
     '''COPY FOLDER'''
     # print("Choose folder to move.")
     # time.sleep(2)
@@ -372,42 +506,42 @@ def main():
 
     # print(folder.src_path)
     # print(file.dest_path)
+    
 
-
-    sys = System_Tasks()
+    '''system = System_Tasks()'''
     ''' SYSTEM INFO '''
-    sys_info = sys.system_info()
-    print(sys_info['System Name'])
+    # sys_info = system.system_info()
+    # print(sys_info['System Name'])
 
     ''' Folder Info '''
     # print("Choose directory.")
     # time.sleep(2)
-    # sys.src_path = filedialog.askdirectory()
-    # dir_info = sys.folder_info()
-    # dir_contents = sys.folder_contents()
+    # system.src_path = filedialog.askdirectory()
+    # dir_info = system.folder_info()
+    # dir_contents = system.folder_contents()
     # display_folder_info(dir_info)
 
     ''' File Size '''
     # print("Choose directory.")
     # time.sleep(2)
-    # sys.src_path = easygui.fileopenbox()
-    # print(sys.file_size())
+    # system.src_path = easygui.fileopenbox()
+    # print(system.file_size())
 
     ''' Find Files w/ Extension '''
     # print("Choose directory.")
     # time.sleep(2)
-    # sys.src_path = filedialog.askdirectory()
-    # sys.dest_path  = simpledialog.askstring(title="User Input", prompt="Enter file extension type to search (e.g. .txt, .zip, .png, .jpg, etc): ")
-    # files_list = sys.find_files_ext()
+    # system.src_path = filedialog.askdirectory()
+    # system.dest_path  = simpledialog.askstring(title="User Input", prompt="Enter file extension type to search (e.g. .txt, .zip, .png, .jpg, etc): ")
+    # files_list = system.find_files_ext()
     # format_file_list(files_list)
 
     ''' Find Files containing String '''
     # print("Choose directory.")
     # time.sleep(2)
-    # sys.src_path = filedialog.askdirectory()
+    # system.src_path = filedialog.askdirectory()
     # user_input  = simpledialog.askstring(title="User Input", prompt="Enter string matchcase for files: ")
-    # sys.dest_path = f'*{user_input}*'
-    # files_list = sys.find_files_contains()
+    # system.dest_path = f'*{user_input}*'
+    # files_list = system.find_files_contains()
     # format_file_list(files_list)  
     
     
