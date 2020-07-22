@@ -13,7 +13,7 @@ Example:
 
 ## Classes
 
-### Classes are designed to get/set src_path & dest_path to be used as private variables for internal class usage with no need for parameters in method calls
+Classes are designed to get/set src_path & dest_path to be used as private variables for internal class usage with no need for parameters in method calls
 
 Files Class - This class will contain actions related to files. Get/Set private methods will be used to set file paths.
 
@@ -87,4 +87,21 @@ class System_Tasks:
         pass
 
 ## Libraries/Modules
-Python Libraries/Modules to be used as part of the project include os, subprocess, shutil. Other dependencies may be used as project is finalized.git
+Python Libraries/Modules to be used as part of the project are below:
+
+import os
+from os import listdir
+import subprocess
+import shutil
+import easygui
+import tkinter as tk
+from tkinter import filedialog
+from tkinter import *
+from tkinter import simpledialog
+from distutils.dir_util import copy_tree
+from fnmatch import fnmatch
+import psutil
+import platform
+from datetime import datetime
+import time
+from columnar import columnar
