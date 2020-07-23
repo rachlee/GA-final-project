@@ -62,8 +62,8 @@ class Files:
         return shutil.move(self.__src_path, self.__dest_path)
     
     # Rename file(s)
-    def rename(self, name):
-        return os.rename(self.__src_path, name)
+    def rename(self):
+        return os.rename(self.__src_path, self.__dest_path)
 
     # Delete file(s)
     def delete(self):
@@ -309,14 +309,17 @@ def main():
             menu = main_menu()
 
             if menu == '1':
+                # Declare action_item as Files() object if menu = 1
                 action_item = Files()
                 counter = 3
                 break
             elif menu == '2':
+                # Declare action_item as Folders() object if menu = 2
                 action_item = Folders()
                 counter = 2
                 break
             elif menu == '3':
+                # Declare action_item as System_Tasks() object if menu = 3
                 action_item = System_Tasks()
                 counter = 3
                 break
@@ -383,25 +386,27 @@ def main():
                     ### RENAME FILE ###
                     print("\nChoose file to rename.")
                     time.sleep(2)
+                    root = tk.Tk()
                     action_item.src_path = easygui.fileopenbox()
+                    root.quit()
                     action_item.dest_path = action_item.src_path
                     time.sleep(1)
-                    root = tk.Tk()
                     print("\nRequesting new name for file (include ext).")
                     name = simpledialog.askstring(title="User Input", prompt="Enter new file name:")
+                    root.quit()
                     time.sleep(2)
                     temp = action_item.dest_path.split('\\')
-                    print(f'temp: {temp}')
+                    # print(f'temp: {temp}')
                     temp = temp[:-1]
-                    print(f'temp: {temp}')
+                    # print(f'temp: {temp}')
                     temp.append(name)
-                    print(f'temp path: {temp}')
-                    print(f'action_item.src_path: {action_item.src_path}')
-                    print(f'action_item.dest_path: {action_item.dest_path}')
+                    # print(f'temp path: {temp}')
+                    # print(f'action_item.src_path: {action_item.src_path}')
+                    # print(f'action_item.dest_path: {action_item.dest_path}')
                     action_item.dest_path = '/'.join(temp) 
-                    print(f'Dest Path:  {action_item.dest_path}')
-                    action_item.rename(action_item.dest_path)
-                    print(f"\nFile RENAME is complete. ")
+                    # print(f'Dest Path:  {action_item.dest_path}')
+                    action_item.rename()
+                    # print(f"\nFile RENAME is complete. ")
                     counter = 3
                     break  
                 elif menu == '5':
@@ -418,8 +423,9 @@ def main():
                     time.sleep(3)
                     continue  
             else:
-                sys.exit("\nToo many attempts. Exiting Python Automation Tool system... ")   
-            print(f'Action_Item Type:  {type(action_item)}')
+                sys.exit("\nToo many attempts. Exiting Python Automation Tool system... ")  
+            # print function to validate action_item type 
+            # print(f'Action_Item Type:  {type(action_item)}')
         # IF action_item is a Folders() class  
         elif isinstance(action_item, Folders):
             counter = 0
@@ -471,23 +477,25 @@ def main():
                     ### RENAME FOLDER ###
                     print("\nChoose folder to rename.")
                     time.sleep(2)
+                    root = tk.Tk()
                     action_item.src_path = filedialog.askdirectory()
+                    root.quit()
                     action_item.dest_path = action_item.src_path
                     time.sleep(1)
-                    root = tk.Tk()
                     print("\nRequesting new name for folder.")
                     name  = simpledialog.askstring(title="User Input", prompt="Enter new folder name:")
+                    root.quit()
                     time.sleep(2)
                     temp = action_item.dest_path.split('/')
-                    print(f'temp: {temp}')
+                    # print(f'temp: {temp}')
                     temp = temp[:-1]
-                    print(f'temp: {temp}')
+                    # print(f'temp: {temp}')
                     temp.append(name)
-                    print(f'temp path: {temp}')
-                    print(f'action_item.src_path: {action_item.src_path}')
-                    print(f'action_item.dest_path: {action_item.dest_path}')
+                    # print(f'temp path: {temp}')
+                    # print(f'action_item.src_path: {action_item.src_path}')
+                    # print(f'action_item.dest_path: {action_item.dest_path}')
                     action_item.dest_path = '/'.join(temp) 
-                    print(f'Dest Path:  {action_item.dest_path}')
+                    # print(f'Dest Path:  {action_item.dest_path}')
                     action_item.rename()
                     print(f"\nFolder RENAME is complete. ")
                     counter = 3
@@ -592,8 +600,9 @@ def main():
                     time.sleep(3)
                     continue  
             else:
-                sys.exit("\nToo many attempts. Exiting Python Automation Tool system... ")   
-            print(f'Action_Item Type:  {type(action_item)}')     
+                sys.exit("\nToo many attempts. Exiting Python Automation Tool system... ")
+            # print function to validate action_item type 
+            # print(f'Action_Item Type:  {type(action_item)}')     
     else:
         sys.exit("\nExiting Python Automation Tool system... ")   
     
