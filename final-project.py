@@ -1,6 +1,6 @@
 ##########
 ## Author: Rachel Lee
-## Assignment: General Assembly 
+## Assignment: General Assembly
 ##             Final Project
 ## Date: 7/23/2020
 ##########
@@ -82,7 +82,7 @@ class Folders:
     def __get_src_path(self):
         return self.__src_path
     
-    # Set Folder's source path attribute    
+    # Set Folder's source path attribute
     def __set_src_path(self, src):
         self.__src_path = src
 
@@ -127,7 +127,7 @@ class System_Tasks:
     def __get_src_path(self):
         return self.__src_path
     
-    # Set Folder's source path attribute    
+    # Set Folder's source path attribute
     def __set_src_path(self, src):
         self.__src_path = src
 
@@ -324,14 +324,14 @@ def main():
                 counter = 3
                 break
             elif menu == '4':
-                sys.exit("\nExiting Python Automation Tool system... ")   
+                sys.exit("\nExiting Python Automation Tool system... ")
             else:
                 counter += 1
                 print("\nInput is invalid.\n")
                 time.sleep(3)
                 continue
         else:
-            sys.exit("\nToo many attempts. Exiting Python Automation Tool system... ")   
+            sys.exit("\nToo many attempts. Exiting Python Automation Tool system... ")
 
         ### Start IF/ELSE condition check to determine which action item to process ###
         # IF action_item is a Files() class  
@@ -370,7 +370,7 @@ def main():
                     action_item.move()
                     print(f"\nFile MOVE is complete. ")
                     counter = 3
-                    break     
+                    break
                 elif menu == '3':
                     print("\nEntered 3 - to Delete File")
                     ### DELETE FILE ###
@@ -403,7 +403,7 @@ def main():
                     # print(f'temp path: {temp}')
                     # print(f'action_item.src_path: {action_item.src_path}')
                     # print(f'action_item.dest_path: {action_item.dest_path}')
-                    action_item.dest_path = '/'.join(temp) 
+                    action_item.dest_path = '/'.join(temp)
                     # print(f'Dest Path:  {action_item.dest_path}')
                     action_item.rename()
                     # print(f"\nFile RENAME is complete. ")
@@ -416,14 +416,14 @@ def main():
                     counter = 3
                     break
                 elif menu == '6':
-                    sys.exit("\nExiting Python Automation Tool system... ")   
+                    sys.exit("\nExiting Python Automation Tool system... ")
                 else:
                     counter += 1
                     print("\nInput is invalid.\n")
                     time.sleep(3)
-                    continue  
+                    continue
             else:
-                sys.exit("\nToo many attempts. Exiting Python Automation Tool system... ")  
+                sys.exit("\nToo many attempts. Exiting Python Automation Tool system... ")
             # print function to validate action_item type 
             # print(f'Action_Item Type:  {type(action_item)}')
         # IF action_item is a Folders() class  
@@ -494,7 +494,7 @@ def main():
                     # print(f'temp path: {temp}')
                     # print(f'action_item.src_path: {action_item.src_path}')
                     # print(f'action_item.dest_path: {action_item.dest_path}')
-                    action_item.dest_path = '/'.join(temp) 
+                    action_item.dest_path = '/'.join(temp)
                     # print(f'Dest Path:  {action_item.dest_path}')
                     action_item.rename()
                     print(f"\nFolder RENAME is complete. ")
@@ -507,7 +507,7 @@ def main():
                     counter = 3
                     break
                 elif menu == '6':
-                    sys.exit("\nExiting Python Automation Tool system... ")   
+                    sys.exit("\nExiting Python Automation Tool system... ")
                 else:
                     counter += 1
                     print("\nInput is invalid.\n")
@@ -515,7 +515,7 @@ def main():
                     continue  
             else:
                 sys.exit("\nToo many attempts. Exiting Python Automation Tool system... ")
-        # IF action_item is a System_Tasks() class      
+        # IF action_item is a System_Tasks() class
         elif isinstance(action_item, System_Tasks):
             counter = 0
 
@@ -593,18 +593,18 @@ def main():
                     counter = 3
                     break
                 elif menu == '8':
-                    sys.exit("\nExiting Python Automation Tool system... ")   
+                    sys.exit("\nExiting Python Automation Tool system... ")
                 else:
                     counter += 1
                     print("\nInput is invalid.\n")
                     time.sleep(3)
-                    continue  
+                    continue
             else:
                 sys.exit("\nToo many attempts. Exiting Python Automation Tool system... ")
             # print function to validate action_item type 
-            # print(f'Action_Item Type:  {type(action_item)}')     
+            # print(f'Action_Item Type:  {type(action_item)}')
     else:
-        sys.exit("\nExiting Python Automation Tool system... ")   
+        sys.exit("\nExiting Python Automation Tool system... ")
     
 # Run main function
 main()
