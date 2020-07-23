@@ -237,6 +237,7 @@ def main_menu():
     print("Enter 1 - to Copy/Move/Delete/Rename File")
     print("Enter 2 - to Copy/Move/Delete/Rename Folder")
     print("Enter 3 - to Get System Information")
+    print("Enter 4 - to Exit the System")
     print("")
     user_input = input("Enter option:  ")
     return user_input
@@ -251,6 +252,8 @@ def file_menu():
     print("Enter 2 - to Move File")
     print("Enter 3 - to Delete File")
     print("Enter 4 - to Rename File")
+    print("Enter 5 - to Go Back to Main Menu")
+    print("Enter 6 - to Exit the System")
     print("")
     user_input = input("Enter option:  ")
     return user_input
@@ -265,6 +268,8 @@ def folder_menu():
     print("Enter 2 - to Move Folder")
     print("Enter 3 - to Delete Folder")
     print("Enter 4 - to Rename Folder")
+    print("Enter 5 - to Go Back to Main Menu")
+    print("Enter 6 - to Exit the System")
     print("")
     user_input = input("Enter option:  ")
     return user_input
@@ -281,6 +286,8 @@ def system_menu():
     print("Enter 4 - to Get the Size of a File")
     print("Enter 5 - to Search for all Files in a Folder with extension of choice")
     print("Enter 6 - to Search for all Files in a Folder containing 'string' of choice")
+    print("Enter 7 - to Go Back to Main Menu")
+    print("Enter 8 - to Exit the System")
     print("")
     user_input = input("Enter option:  ")
     return user_input
@@ -293,400 +300,302 @@ def main():
     menu = None
     action_item = None
 
-    # WHILE LOOP to check which option from Main Menu
-    counter = 0
-    while counter < 3:
-        menu = main_menu()
+    ### Start While Loop as long as menu = None type ###
+    while menu == None:
+        counter = 0
 
-        if menu == '1':
-            action_item = Files()
-            counter = 2
-            break
-        elif menu == '2':
-            action_item = Folders()
-            counter = 2
-            break
-        elif menu == '3':
-            action_item = System_Tasks()
-            counter = 2
-            break
+        # WHILE LOOP to check which option to process from Main Menu
+        while counter < 3:
+            menu = main_menu()
+
+            if menu == '1':
+                action_item = Files()
+                counter = 3
+                break
+            elif menu == '2':
+                action_item = Folders()
+                counter = 2
+                break
+            elif menu == '3':
+                action_item = System_Tasks()
+                counter = 3
+                break
+            elif menu == '4':
+                sys.exit("\nExiting Python Automation Tool system... ")   
+            else:
+                counter += 1
+                print("\nInput is invalid.\n")
+                time.sleep(3)
+                continue
         else:
-            counter += 1
-            print("\nInput is invalid.\n")
-            time.sleep(3)
-            continue
+            sys.exit("\nToo many attempts. Exiting Python Automation Tool system... ")   
+
+        ### Start IF/ELSE condition check to determine which action item to process ###
+        # IF action_item is a Files() class  
+        if isinstance(action_item, Files):
+            counter = 0
+
+            # WHILE LOOP to check which option to process from File Menu
+            while counter < 3:
+                time.sleep(1)
+                menu = file_menu()
+
+                if menu == '1':
+                    print("\nEntered 1 - to Copy File")
+                    ### COPY FILE ###
+                    print("\nChoose file to copy.")
+                    time.sleep(2)
+                    action_item.src_path = easygui.fileopenbox()
+                    time.sleep(1)
+                    print("\nChoose destination path. ")
+                    time.sleep(2)
+                    action_item.dest_path = filedialog.askdirectory()
+                    time.sleep(1)
+                    action_item.copy()
+                    print(f"\nFile COPY is complete. ")
+                    counter = 3
+                    break
+                elif menu == '2':
+                    print("\nEntered 2 - to Move File")
+                    ### MOVE FILE ###
+                    print("\nChoose file to move.")
+                    time.sleep(2)
+                    action_item.src_path = easygui.fileopenbox()
+                    print("\nChoose directory to move file to.")
+                    time.sleep(2)
+                    action_item.dest_path  = filedialog.askdirectory()
+                    action_item.move()
+                    print(f"\nFile MOVE is complete. ")
+                    counter = 3
+                    break     
+                elif menu == '3':
+                    print("\nEntered 3 - to Delete File")
+                    ### DELETE FILE ###
+                    print("\nChoose file to delete.")
+                    time.sleep(2)
+                    action_item.src_path = easygui.fileopenbox()
+                    action_item.delete()
+                    print(f"\nFile DELETE is complete. ")
+                    counter = 3
+                    break
+                elif menu == '4':
+                    print("\nEntered 4 - to Rename File")
+                    ### RENAME FILE ###
+                    print("\nChoose file to rename.")
+                    time.sleep(2)
+                    action_item.src_path = easygui.fileopenbox()
+                    action_item.dest_path = action_item.src_path
+                    time.sleep(1)
+                    root = tk.Tk()
+                    print("\nRequesting new name for file (include ext).")
+                    name = simpledialog.askstring(title="User Input", prompt="Enter new file name:")
+                    time.sleep(2)
+                    temp = action_item.dest_path.split('\\')
+                    print(f'temp: {temp}')
+                    temp = temp[:-1]
+                    print(f'temp: {temp}')
+                    temp.append(name)
+                    print(f'temp path: {temp}')
+                    print(f'action_item.src_path: {action_item.src_path}')
+                    print(f'action_item.dest_path: {action_item.dest_path}')
+                    action_item.dest_path = '/'.join(temp) 
+                    print(f'Dest Path:  {action_item.dest_path}')
+                    action_item.rename(action_item.dest_path)
+                    print(f"\nFile RENAME is complete. ")
+                    counter = 3
+                    break  
+                elif menu == '5':
+                    print("\nGoing Back to Main Menu.\n")
+                    time.sleep(1)
+                    menu = None
+                    counter = 3
+                    break
+                elif menu == '6':
+                    sys.exit("\nExiting Python Automation Tool system... ")   
+                else:
+                    counter += 1
+                    print("\nInput is invalid.\n")
+                    time.sleep(3)
+                    continue  
+            else:
+                sys.exit("\nToo many attempts. Exiting Python Automation Tool system... ")   
+            print(f'Action_Item Type:  {type(action_item)}')
+        # IF action_item is a Folders() class  
+        elif isinstance(action_item, Folders):
+            counter = 0
+
+            # WHILE LOOP to check which option to process from Folder Menu
+            while counter < 3:
+                time.sleep(1)
+                menu = folder_menu()
+
+                if menu == '1':
+                    print("Entered 1 - to Copy Folder")
+                    ### COPY FOLDER ###
+                    print("\nChoose folder to copy.")
+                    time.sleep(2)
+                    action_item.src_path = filedialog.askdirectory()
+                    time.sleep(1)
+                    print("\nChoose destination directory.")
+                    time.sleep(2)
+                    action_item.dest_path  = filedialog.askdirectory()
+                    time.sleep(1)
+                    action_item.copy()
+                    print(f"\nFolder COPY is complete. ")
+                    counter = 3
+                    break
+                elif menu == '2':
+                    print("Entered 2 - to Move Folder")
+                    ### MOVE FOLDER ###
+                    print("\nChoose folder to move.")
+                    time.sleep(2)
+                    action_item.src_path = filedialog.askdirectory()
+                    print("\nChoose destination directory.")
+                    time.sleep(2)
+                    action_item.dest_path  = filedialog.askdirectory()
+                    action_item.move()
+                    counter = 3
+                    break     
+                elif menu == '3':
+                    print("Entered 3 - to Delete Folder")
+                    ### DELETE FOLDER ###
+                    print("\nChoose folder to delete.")
+                    time.sleep(2)
+                    action_item.src_path = filedialog.askdirectory()
+                    time.sleep(2)
+                    action_item.delete()
+                    counter = 3
+                    break
+                elif menu == '4':
+                    print("Entered 4 - to Rename Folder")
+                    ### RENAME FOLDER ###
+                    print("\nChoose folder to rename.")
+                    time.sleep(2)
+                    action_item.src_path = filedialog.askdirectory()
+                    action_item.dest_path = action_item.src_path
+                    time.sleep(1)
+                    root = tk.Tk()
+                    print("\nRequesting new name for folder.")
+                    name  = simpledialog.askstring(title="User Input", prompt="Enter new folder name:")
+                    time.sleep(2)
+                    temp = action_item.dest_path.split('/')
+                    print(f'temp: {temp}')
+                    temp = temp[:-1]
+                    print(f'temp: {temp}')
+                    temp.append(name)
+                    print(f'temp path: {temp}')
+                    print(f'action_item.src_path: {action_item.src_path}')
+                    print(f'action_item.dest_path: {action_item.dest_path}')
+                    action_item.dest_path = '/'.join(temp) 
+                    print(f'Dest Path:  {action_item.dest_path}')
+                    action_item.rename()
+                    print(f"\nFolder RENAME is complete. ")
+                    counter = 3
+                    break
+                elif menu == '5':
+                    print("\nGoing Back to Main Menu.\n")
+                    time.sleep(1)
+                    menu = None
+                    counter = 3
+                    break
+                elif menu == '6':
+                    sys.exit("\nExiting Python Automation Tool system... ")   
+                else:
+                    counter += 1
+                    print("\nInput is invalid.\n")
+                    time.sleep(3)
+                    continue  
+            else:
+                sys.exit("\nToo many attempts. Exiting Python Automation Tool system... ")
+        # IF action_item is a System_Tasks() class      
+        elif isinstance(action_item, System_Tasks):
+            counter = 0
+
+            # WHILE LOOP to check which option to process from System Menu
+            while counter < 3:
+                time.sleep(1)
+                menu = system_menu()
+
+                if menu == '1':
+                    print("Entered 1 - to Get System Information")
+                    ### SYSTEM INFO ###
+                    sys_info = action_item.system_info()
+                    print(f'\nSystem Information:\n{sys_info}')
+                    # print(sys_info['System Name'])
+                    counter = 3
+                    break
+                elif menu == '2':
+                    print("Entered 2 - to Get a List of all contents in a Folder")
+                    ### FOLDER CONTENTS ###
+                    print("\nChoose directory.")
+                    time.sleep(2)
+                    action_item.src_path = filedialog.askdirectory()
+                    print(f'\nSelected folder contains:\n{action_item.folder_contents()}')
+                    counter = 3
+                    break     
+                elif menu == '3':
+                    print("Entered 3 - to Get a List of [Create Date, Modified Date, Size] of all contents in a Folder")
+                    ### DISPLAY FOLDER INFO ###
+                    print("\nChoose directory.")
+                    time.sleep(2)
+                    action_item.src_path = filedialog.askdirectory()
+                    dir_info = action_item.folder_info()
+                    dir_contents = action_item.folder_contents()
+                    display_folder_info(dir_info)
+                    counter = 3
+                    break
+                elif menu == '4':
+                    print("Entered 4 - to Get the Size of a File")
+                    ### FILE SIZE ###
+                    print("Choose file.")
+                    time.sleep(2)
+                    action_item.src_path = easygui.fileopenbox()
+                    print(f'\nSelected file size (bytes): {action_item.file_size()}')
+                    counter = 3
+                    break
+                elif menu == '5':
+                    print("Entered 5 - to Search for all Files in a Folder with extension of choice")
+                    ### Find Files w/ 'Extension' ###
+                    print("\nChoose directory.")
+                    time.sleep(2)
+                    action_item.src_path = filedialog.askdirectory()
+                    time.sleep(1)
+                    action_item.dest_path  = simpledialog.askstring(title="User Input", prompt="Enter file extension type to search (e.g. .txt, .zip, .png, .jpg, etc): ")
+                    files_list = action_item.find_files_ext()
+                    format_file_list(files_list)
+                    counter = 3
+                    break
+                elif menu == '6':
+                    print("Entered 6 - to Search for all Files in a Folder containing 'string' of choice")
+                    ### Find Files containing 'String' ###
+                    print("\nChoose directory.")
+                    time.sleep(2)
+                    action_item.src_path = filedialog.askdirectory()
+                    time.sleep(1)
+                    user_input  = simpledialog.askstring(title="User Input", prompt="Enter string matchcase for files: ")
+                    action_item.dest_path = f'*{user_input}*'
+                    files_list = action_item.find_files_contains()
+                    format_file_list(files_list)  
+                    counter = 3
+                    break
+                elif menu == '7':
+                    print("\nGoing Back to Main Menu.\n")
+                    time.sleep(1)
+                    menu = None
+                    counter = 3
+                    break
+                elif menu == '8':
+                    sys.exit("\nExiting Python Automation Tool system... ")   
+                else:
+                    counter += 1
+                    print("\nInput is invalid.\n")
+                    time.sleep(3)
+                    continue  
+            else:
+                sys.exit("\nToo many attempts. Exiting Python Automation Tool system... ")   
+            print(f'Action_Item Type:  {type(action_item)}')     
     else:
-        sys.exit("\nToo many attempts. Exiting system... ")
-
-    print(f'Action_Item Type:  {type(action_item)}')
-
-
-    # IF/ELSE condition check to determine which action item to process
-    if isinstance(action_item, Files):
-        # if Action Item requests on Files() class
-        counter = 0
-        while counter < 3:
-            menu = file_menu()
-
-            if menu == '1':
-                print("\nEntered 1 - to Copy File")
-                ### COPY FILE ###
-                print("\nChoose file to copy.")
-                time.sleep(2)
-                action_item.src_path = easygui.fileopenbox()
-                time.sleep(1)
-                print("\nChoose destination path. ")
-                time.sleep(2)
-                action_item.dest_path = filedialog.askdirectory()
-                time.sleep(1)
-                action_item.copy()
-                print(f"\nFile COPY is complete. ")
-                counter = 2
-                break
-            elif menu == '2':
-                print("\nEntered 2 - to Move File")
-                ### MOVE FILE ###
-                print("\nChoose file to move.")
-                time.sleep(2)
-                action_item.src_path = easygui.fileopenbox()
-                print("\nChoose directory to move file to.")
-                time.sleep(2)
-                action_item.dest_path  = filedialog.askdirectory()
-                action_item.move()
-                print(f"\nFile MOVE is complete. ")
-                counter = 2
-                break     
-            elif menu == '3':
-                print("\nEntered 3 - to Delete File")
-                ### DELETE FILE ###
-                print("\nChoose file to delete.")
-                time.sleep(2)
-                action_item.src_path = easygui.fileopenbox()
-                action_item.delete()
-                print(f"\nFile DELETE is complete. ")
-                counter = 2
-                break
-            elif menu == '4':
-                print("\nEntered 4 - to Rename File")
-                ### RENAME FILE ###
-                print("\nChoose file to rename.")
-                time.sleep(2)
-                action_item.src_path = easygui.fileopenbox()
-                action_item.dest_path = action_item.src_path
-                time.sleep(1)
-                root = tk.Tk()
-                print("\nRequesting new name for file (include ext).")
-                name = simpledialog.askstring(title="User Input", prompt="Enter new file name:")
-                time.sleep(2)
-                temp = action_item.dest_path.split('\\')
-                print(f'temp: {temp}')
-                temp = temp[:-1]
-                print(f'temp: {temp}')
-                temp.append(name)
-                print(f'temp path: {temp}')
-                print(f'action_item.src_path: {action_item.src_path}')
-                print(f'action_item.dest_path: {action_item.dest_path}')
-                action_item.dest_path = '/'.join(temp) 
-                print(f'Dest Path:  {action_item.dest_path}')
-                action_item.rename(action_item.dest_path)
-                print(f"\nFile RENAME is complete. ")
-                counter = 2
-                break   
-            else:
-                counter += 1
-                print("\nInput is invalid.\n")
-                time.sleep(3)
-                continue  
-        else:
-            sys.exit("\nToo many attempts. Exiting system... ")
-        print(f'Action_Item Type:  {type(action_item)}')
-        sys.exit("\nExiting Python Automation Tool system... ")
-
-    elif isinstance(action_item, Folders):
-        # if Action Item requests on Folders() class
-        counter = 0
-        while counter < 3:
-            menu = folder_menu()
-
-            if menu == '1':
-                print("Entered 1 - to Copy Folder")
-                ### COPY FOLDER ###
-                print("\nChoose folder to copy.")
-                time.sleep(2)
-                action_item.src_path = filedialog.askdirectory()
-                time.sleep(1)
-                print("\nChoose destination directory.")
-                time.sleep(2)
-                action_item.dest_path  = filedialog.askdirectory()
-                time.sleep(1)
-                action_item.copy()
-                print(f"\nFolder COPY is complete. ")
-                counter = 2
-                break
-            elif menu == '2':
-                print("Entered 2 - to Move Folder")
-                ### MOVE FOLDER ###
-                print("\nChoose folder to move.")
-                time.sleep(2)
-                action_item.src_path = filedialog.askdirectory()
-                print("\nChoose destination directory.")
-                time.sleep(2)
-                action_item.dest_path  = filedialog.askdirectory()
-                action_item.move()
-                counter = 2
-                break     
-            elif menu == '3':
-                print("Entered 3 - to Delete Folder")
-                ### DELETE FOLDER ###
-                print("\nChoose folder to delete.")
-                time.sleep(2)
-                action_item.src_path = filedialog.askdirectory()
-                time.sleep(2)
-                action_item.delete()
-                counter = 2
-                break
-            elif menu == '4':
-                print("Entered 4 - to Rename Folder")
-                ### RENAME FOLDER ###
-                print("\nChoose folder to rename.")
-                time.sleep(2)
-                action_item.src_path = filedialog.askdirectory()
-                action_item.dest_path = action_item.src_path
-                time.sleep(1)
-                root = tk.Tk()
-                print("\nRequesting new name for folder.")
-                name  = simpledialog.askstring(title="User Input", prompt="Enter new folder name:")
-                time.sleep(2)
-                temp = action_item.dest_path.split('/')
-                print(f'temp: {temp}')
-                temp = temp[:-1]
-                print(f'temp: {temp}')
-                temp.append(name)
-                print(f'temp path: {temp}')
-                print(f'action_item.src_path: {action_item.src_path}')
-                print(f'action_item.dest_path: {action_item.dest_path}')
-                action_item.dest_path = '/'.join(temp) 
-                print(f'Dest Path:  {action_item.dest_path}')
-                action_item.rename()
-                print(f"\nFolder RENAME is complete. ")
-                counter = 2
-                break   
-            else:
-                counter += 1
-                print("\nInput is invalid.\n")
-                time.sleep(3)
-                continue  
-        else:
-            sys.exit("\nToo many attempts. Exiting system... ")
-        print(f'Action_Item Type:  {type(action_item)}')
-        
-    elif isinstance(action_item, System_Tasks):
-        # if Action Item requests on System_Tasks() class
-        counter = 0
-        while counter < 3:
-            menu = system_menu()
-
-            if menu == '1':
-                print("Entered 1 - to Get System Information")
-                ### SYSTEM INFO ###
-                sys_info = action_item.system_info()
-                print(f'\nSystem Information:\n{sys_info}')
-                # print(sys_info['System Name'])
-                counter = 2
-                break
-            elif menu == '2':
-                print("Entered 2 - to Get a List of all contents in a Folder")
-                ### FOLDER CONTENTS ###
-                print("\nChoose directory.")
-                time.sleep(2)
-                action_item.src_path = filedialog.askdirectory()
-                print(f'\nSelected folder contains:\n{action_item.folder_contents()}')
-                counter = 2
-                break     
-            elif menu == '3':
-                print("Entered 3 - to Get a List of [Create Date, Modified Date, Size] of all contents in a Folder")
-                ### DISPLAY FOLDER INFO ###
-                print("\nChoose directory.")
-                time.sleep(2)
-                action_item.src_path = filedialog.askdirectory()
-                dir_info = action_item.folder_info()
-                dir_contents = action_item.folder_contents()
-                display_folder_info(dir_info)
-                counter = 2
-                break
-            elif menu == '4':
-                print("Entered 4 - to Get the Size of a File")
-                ### FILE SIZE ###
-                print("Choose file.")
-                time.sleep(2)
-                action_item.src_path = easygui.fileopenbox()
-                print(f'\nSelected file size (bytes): {action_item.file_size()}')
-                counter = 2
-                break
-            elif menu == '5':
-                print("Entered 5 - to Search for all Files in a Folder with extension of choice")
-                ### Find Files w/ 'Extension' ###
-                print("\nChoose directory.")
-                time.sleep(2)
-                action_item.src_path = filedialog.askdirectory()
-                time.sleep(1)
-                action_item.dest_path  = simpledialog.askstring(title="User Input", prompt="Enter file extension type to search (e.g. .txt, .zip, .png, .jpg, etc): ")
-                files_list = action_item.find_files_ext()
-                format_file_list(files_list)
-                counter = 2
-                break
-            elif menu == '6':
-                print("Entered 6 - to Search for all Files in a Folder containing 'string' of choice")
-                ### Find Files containing 'String' ###
-                print("\nChoose directory.")
-                time.sleep(2)
-                action_item.src_path = filedialog.askdirectory()
-                time.sleep(1)
-                user_input  = simpledialog.askstring(title="User Input", prompt="Enter string matchcase for files: ")
-                action_item.dest_path = f'*{user_input}*'
-                files_list = action_item.find_files_contains()
-                format_file_list(files_list)  
-                counter = 2
-                break 
-            else:
-                counter += 1
-                print("\nInput is invalid.\n")
-                time.sleep(3)
-                continue  
-        else:
-            sys.exit("\nToo many attempts. Exiting system... ")
-        print(f'Action_Item Type:  {type(action_item)}')
-        
-
-
-    ##########################################################################
-
-    '''file = Files()'''
-    '''COPY FILE'''
-    # print("Choose file to copy.")
-    # time.sleep(2)
-    # file.src_path = easygui.fileopenbox()
-    # print("Choose destination path. ")
-    # time.sleep(2)
-    # file.dest_path = filedialog.askdirectory()
-
-    # file.copy()
-    '''DELETE FILE'''
-    # print("Choose file to delete.")
-    # time.sleep(2)
-    # file.src_path = easygui.fileopenbox()
-    # file.delete()
-
-    '''RENAME FILE'''
-    # print("Choose file to rename.")
-    # time.sleep(2)
-    # file.src_path = easygui.fileopenbox()
-    # name = input("Enter new name: ")
-    # time.sleep(2)
-    # dest  = filedialog.askdirectory()
-    # file.dest_path = os.path.join(dest, name)
-    # print(file.dest_path)
-    # file.rename(file.dest_path)
-
-    '''MOVE FILE'''
-    # print("Choose file to move.")
-    # time.sleep(2)
-    # file.src_path = easygui.fileopenbox()
-    # print("Choose directory to move file to.")
-    # time.sleep(2)
-    # file.dest_path  = filedialog.askdirectory()
-    # file.move()
+        sys.exit("\nExiting Python Automation Tool system... ")   
     
-
-    '''folder = Folders()'''
-    '''COPY FOLDER'''
-    # print("Choose folder to copy.")
-    # time.sleep(2)
-    # folder.src_path = filedialog.askdirectory()
-    # print("Choose destination directory.")
-    # time.sleep(2)
-    # folder.dest_path  = filedialog.askdirectory()
-    # folder.copy()
-
-    '''DELETE FOLDER'''
-    # print("Choose folder to delete.")
-    # time.sleep(2)
-    # folder.src_path = filedialog.askdirectory()
-    # print("Choose destination directory.")
-    # time.sleep(2)
-    # # folder.dest_path  = filedialog.askdirectory()
-    # folder.delete()
-
-    '''MOVE FOLDER'''
-    # print("Choose folder to move.")
-    # time.sleep(2)
-    # folder.src_path = filedialog.askdirectory()
-    # print("Choose destination directory.")
-    # time.sleep(2)
-    # folder.dest_path  = filedialog.askdirectory()
-    # folder.move()
-
-    '''RENAME FOLDER'''
-    # print("Choose folder to rename.")
-    # time.sleep(2)
-    # folder.src_path = filedialog.askdirectory()
-    # print("Choose destination directory.")
-    # time.sleep(2)
-    # dest  = simpledialog.askstring(title="User Input", prompt="Enter new folder name:")
-    # temp = folder.src_path.split('/')
-    # temp = temp[:-1]
-    # temp.append(dest)
-    # folder.dest_path = '/'.join(temp) 
-    # print(folder.dest_path)
-    # folder.rename()
-
-
-    # print(folder.src_path)
-    # print(file.dest_path)
-    
-
-    '''system = System_Tasks()'''
-    ''' SYSTEM INFO '''
-    # sys_info = system.system_info()
-    # print(sys_info['System Name'])
-
-    ''' Folder Info '''
-    # print("Choose directory.")
-    # time.sleep(2)
-    # system.src_path = filedialog.askdirectory()
-    # dir_info = system.folder_info()
-    # dir_contents = system.folder_contents()
-    # display_folder_info(dir_info)
-
-    ''' Folder Contents '''
-    # print("Choose directory.")
-    # time.sleep(2)
-    # system.src_path = filedialog.askdirectory()
-    # print(system.folder_contents())
-
-    ''' File Size '''
-    # print("Choose directory.")
-    # time.sleep(2)
-    # system.src_path = easygui.fileopenbox()
-    # print(system.file_size())
-
-    ''' Find Files w/ Extension '''
-    # print("Choose directory.")
-    # time.sleep(2)
-    # system.src_path = filedialog.askdirectory()
-    # system.dest_path  = simpledialog.askstring(title="User Input", prompt="Enter file extension type to search (e.g. .txt, .zip, .png, .jpg, etc): ")
-    # files_list = system.find_files_ext()
-    # format_file_list(files_list)
-
-    ''' Find Files containing String '''
-    # print("Choose directory.")
-    # time.sleep(2)
-    # system.src_path = filedialog.askdirectory()
-    # user_input  = simpledialog.askstring(title="User Input", prompt="Enter string matchcase for files: ")
-    # system.dest_path = f'*{user_input}*'
-    # files_list = system.find_files_contains()
-    # format_file_list(files_list)  
-    
-    
-    
+# Run main function
 main()
