@@ -1,10 +1,12 @@
-#####
-# Author: Rachel Lee
-# Assignment: Final Project
-# Date: 7/23/2020
-#####
+##########
+## Author: Rachel Lee
+## Assignment: General Assembly 
+##             Final Project
+## Date: 7/23/2020
+##########
 
-# import libraries 
+
+# import libraries/modules
 import os
 from os import listdir
 import subprocess
@@ -22,8 +24,6 @@ from datetime import datetime
 import time
 from columnar import columnar
 import sys
-
-
 
 
 class Files:
